@@ -1,7 +1,9 @@
 ##Features of the dataset (bold info are mandatory):
 
 **1. Age: Patients Age in years (Numeric)**
+
 **2. Sex: Gender (Male : 1; Female : 0) (Nominal)**
+
 3. cp: Type of chest pain experienced by patient. This term categorized into 4 category. 0 typical angina, 1 atypical angina, 2 non- anginal pain, 3 asymptomatic (Nominal)
 4. trestbps: patient's level of blood pressure at resting mode in mm/HG (Numerical)
 5. chol: Serum cholesterol in mg/dl (Numeric)
