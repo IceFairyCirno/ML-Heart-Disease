@@ -23,20 +23,23 @@ model.fit(x_train_scaled, y_train)
 y_pred = model.predict(x_test_scaled)
 print(f"This model's accuracy: {(accuracy_score(y_test, y_pred)*100):.2f}%")
 
-defaults = pd.DataFrame(x_train).median()
-
-info = input("Enter your age and sex (e.g. 60, M): ").split(" ")
+info = input("Enter your age and sex (e.g. 60 M): ").split(" ")
 age, sex = int(info[0]), (1 if info[1]==("M" or "m") else 0)
-defaults["age"] = age
-defaults["sex"] = sex
 
+df=pd.DataFrame(x_train)
+df = df[df['age'] == age]
+df = df[df['sex'] == sex]
+
+defaults = df.median()
 defaults = pd.DataFrame(defaults).T
-print(defaults)
 
-x_client = scaler.transform(defaults)
-prediction = model.predict(x_client)
-
-print(f"Heart Disease: {"Yes" if prediction else "No"}")
+if defaults.isna().all().all() == True:
+    print("No info related")
+else:
+    x_client = scaler.transform(defaults)
+    prediction = model.predict(x_client)
+    chance = model.predict_proba(x_client)
+    print(f"Heart Disease: {"Yes" if prediction else "No"} with a chance of {(chance[:, (1 if prediction else 0)]*100)[0]:.1f}%")
 
 
 
